@@ -37,12 +37,13 @@ public class KryoPeopleDeserializer implements Deserializer<People> {
 
     @Override
     public People deserialize(String topic, byte[] data) {
-        try {
-            if (data == null || data.length == 0) {
-                log.error("反序列化失败，字节数组为空");
-                return null;
-            }
-            Input input = new Input(data);
+        if (data == null || data.length == 0) {
+            log.error("反序列化失败，字节数组为空");
+            return null;
+        }
+        try (
+                Input input = new Input(data)
+        ) {
             Kryo kryo = kryoLocal.get();
             kryo.register(People.class);
             return kryo.readObject(input, People.class);

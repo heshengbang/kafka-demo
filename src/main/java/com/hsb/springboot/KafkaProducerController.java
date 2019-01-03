@@ -47,8 +47,7 @@ public class KafkaProducerController {
         ListenableFuture<SendResult<String, People>> result = kryoPeopleKafkaTemplate.send("kryoPeople", people);
         try {
             SendResult<String, People> sendResult = result.get();
-            System.out.println("发送消息到kryoPeople成功");
-            return sendResult.getProducerRecord().key();
+            return "发送到Kafka的Key = " + sendResult.getProducerRecord().key();
         } catch (InterruptedException | ExecutionException e) {
             log.info("发送消息到kafka， topic = {}", "kryoPeople", e);
         }
