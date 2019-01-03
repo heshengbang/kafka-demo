@@ -4,9 +4,10 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.BeanSerializer;
 import com.hsb.springboot.entity.People;
-import java.util.Map;
 import org.apache.kafka.common.serialization.Serializer;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 /**
  *
@@ -26,7 +27,6 @@ public class KryoPeopleSerializer implements Serializer<People> {
         kryo.register(People.class, new BeanSerializer<>(kryo, People.class));
         return kryo;
     });
-    private final ThreadLocal<Output> outputLocal = new ThreadLocal<>();
 
     @Override
     public void configure(Map<String, ?> configs, boolean isKey) {
@@ -34,19 +34,14 @@ public class KryoPeopleSerializer implements Serializer<People> {
 
     @Override
     public byte[] serialize(String topic, People data) {
-        Output output;
-        if ((output = outputLocal.get()) == null) {
-            output = new Output(new byte[5 * 1024 * 1024]);
-            outputLocal.set(output);
-        }
-        kryoLocal.get().writeObjectOrNull(output, data, People.class);
-        output.flush();
-        return output.getBuffer();
+        Output output = new Output(new byte[5 * 1024 * 1024]);
+        kryoLocal.get().register(People.class);
+        kryoLocal.get().writeObject(output, data);
+        return output.toBytes();
     }
 
     @Override
     public void close() {
-        outputLocal.remove();
         kryoLocal.remove();
     }
 }
