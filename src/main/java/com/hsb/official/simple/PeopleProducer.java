@@ -1,6 +1,7 @@
-package com.hsb.official;
+package com.hsb.official.simple;
 
 import com.hsb.entity.People;
+import com.hsb.official.KafkaProperties;
 import com.hsb.springboot.config.serializer.PeopleSerializer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.Callback;
@@ -31,7 +32,7 @@ public class PeopleProducer extends Thread {
     PeopleProducer(String topic, Boolean isAsync) {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, "DemoProducer");
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, KafkaProperties.PRODUER_CLIENT_ID);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, PeopleSerializer.class.getName());
         producer = new KafkaProducer<>(props);
@@ -57,7 +58,7 @@ public class PeopleProducer extends Thread {
                 // Send synchronously
                 try {
                     producer.send(new ProducerRecord<>(topic, message, people)).get();
-                    System.out.println("Producer：Sent message: (" + message + ", " + people.toString() + ")");
+                    System.out.println("Official_Producer：synchronously Sent message: (" + message + ", " + people.toString() + ")");
                 } catch (InterruptedException | ExecutionException e) {
                     log.error("发送消息到kafka失败：", e);
                 }
@@ -95,7 +96,7 @@ class DemoCallBack implements Callback {
         long elapsedTime = System.currentTimeMillis() - startTime;
         if (metadata != null) {
             System.out.println(
-                    "message(" + key + ", " + people.toString() + ") sent to partition(" + metadata.partition() +
+                    "asynchronously message(" + key + ", " + people.toString() + ") sent to partition(" + metadata.partition() +
                             "), " +
                             "offset(" + metadata.offset() + ") in " + elapsedTime + " ms");
         } else {

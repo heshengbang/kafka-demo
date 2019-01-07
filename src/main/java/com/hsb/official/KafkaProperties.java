@@ -10,11 +10,8 @@ package com.hsb.official;
  */
 
 public class KafkaProperties {
-    public static final String TOPIC = "people";
-    public static final int KAFKA_PRODUCER_BUFFER_SIZE = 64 * 1024;
-    public static final int CONNECTION_TIMEOUT = 100000;
-    public static final String TOPIC2 = "topic2";
-    public static final String TOPIC3 = "topic3";
-    public static final String CLIENT_ID = "SimpleConsumerDemoClient";
+    public static final String TOPIC = "official_people";
+    public static final String CONSUMER_CLIENT_ID = "official_consumer";
+    public static final String PRODUER_CLIENT_ID = "official_produer";
     private KafkaProperties() {}
 }

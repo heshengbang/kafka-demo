@@ -1,6 +1,7 @@
-package com.hsb.official;
+package com.hsb.official.simple;
 
 import com.hsb.entity.People;
+import com.hsb.official.KafkaProperties;
 import com.hsb.springboot.config.deserializer.PeopleDeserializer;
 import java.time.Duration;
 import java.util.Collections;
@@ -25,11 +26,11 @@ public class PeopleConsumer extends ShutdownableThread {
     private final KafkaConsumer<String, People> consumer;
     private final String topic;
 
-    PeopleConsumer(String topic) {
+    public PeopleConsumer(String topic) {
         super("PeopleConsumer", false);
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "DemoConsumer");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, KafkaProperties.CONSUMER_CLIENT_ID);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");
@@ -46,7 +47,7 @@ public class PeopleConsumer extends ShutdownableThread {
         ConsumerRecords<String, People> records = consumer.poll(Duration.ofSeconds(1L).getSeconds());
         for (ConsumerRecord<String, People> record : records) {
             if (record.value() != null) {
-                System.out.println("Consumer：Received message: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
+                System.out.println("Official_Consumer：Received message: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
             }
         }
     }

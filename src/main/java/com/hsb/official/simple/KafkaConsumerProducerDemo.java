@@ -1,4 +1,6 @@
-package com.hsb.official;
+package com.hsb.official.simple;
+
+import com.hsb.official.KafkaProperties;
 
 /**
  * Blog: https://www.heshengbang.tech

@@ -38,8 +38,8 @@ public class KafkaProducerController {
     @Qualifier("basicKafkaTemplate")
     private KafkaTemplate<String, String> basicKafkaTemplate;
 
-    @RequestMapping("/sendKryoPeople")
-    public String sendKryoPeople(@RequestParam("name") String name, @RequestParam("age") int age) {
+    @RequestMapping("/springBootSendKryoPeople")
+    public String springBootSendKryoPeople(@RequestParam("name") String name, @RequestParam("age") int age) {
         People people = new People();
         people.setName(name);
         people.setAge(age);
@@ -54,8 +54,8 @@ public class KafkaProducerController {
         return null;
     }
 
-    @RequestMapping("/sendPeople")
-    public String sendPeople(@RequestParam("name") String name, @RequestParam("age") int age) {
+    @RequestMapping("/springBootSendPeople")
+    public String springBootSendPeople(@RequestParam("name") String name, @RequestParam("age") int age) {
         People people = new People();
         people.setName(name);
         people.setAge(age);
@@ -63,7 +63,7 @@ public class KafkaProducerController {
         ListenableFuture<SendResult<String, People>> result = peopleKafkaTemplate.send("people", people);
         try {
             SendResult<String, People> sendResult = result.get();
-            System.out.println("发送消息到people成功");
+            System.out.println("springBoot_producer：发送消息到people成功");
             return sendResult.getProducerRecord().key();
         } catch (InterruptedException | ExecutionException e) {
             log.info("发送消息到kafka， topic = {}", "people", e);
@@ -71,12 +71,12 @@ public class KafkaProducerController {
         return null;
     }
 
-    @RequestMapping("/send")
-    public String send(@RequestParam("msg") String msg){
+    @RequestMapping("/springBootSend")
+    public String springBootSend(@RequestParam("msg") String msg){
         ListenableFuture<SendResult<String, String>> result = basicKafkaTemplate.send("test1", msg);
         try {
             SendResult<String, String> sendResult = result.get();
-            System.out.println("发送消息到test1成功");
+            System.out.println("springBoot_producer：发送消息到test1成功");
             return sendResult.getProducerRecord().key();
         } catch (InterruptedException | ExecutionException e) {
             log.info("发送消息到kafka， topic = {}", "test1", e);
