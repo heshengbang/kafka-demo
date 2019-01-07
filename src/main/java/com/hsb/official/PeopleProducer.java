@@ -42,7 +42,7 @@ public class PeopleProducer extends Thread {
     @Override
     public void run() {
         int messageNo = 1;
-        int count = 100000;
+        int count = 10;
         while (messageNo < count) {
             String message = "Message_" + messageNo;
             long startTime = System.currentTimeMillis();
@@ -64,9 +64,11 @@ public class PeopleProducer extends Thread {
             }
             ++messageNo;
         }
+        System.out.println("消费者线程结束");
     }
 }
 
+@Slf4j
 class DemoCallBack implements Callback {
 
     private final long startTime;
@@ -97,7 +99,7 @@ class DemoCallBack implements Callback {
                             "), " +
                             "offset(" + metadata.offset() + ") in " + elapsedTime + " ms");
         } else {
-            exception.printStackTrace();
+            log.error(exception.getMessage());
         }
     }
 }
