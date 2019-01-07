@@ -1,17 +1,18 @@
 package com.hsb.springboot.config;
 
+import com.hsb.entity.People;
 import com.hsb.springboot.config.serializer.KryoPeopleSerializer;
 import com.hsb.springboot.config.serializer.KryoStringSerializer;
 import com.hsb.springboot.config.serializer.PeopleSerializer;
-import com.hsb.springboot.entity.People;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Blog: https://www.heshengbang.tech

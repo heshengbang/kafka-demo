@@ -1,6 +1,6 @@
 package com.hsb.springboot.config.serializer;
 
-import com.hsb.springboot.entity.People;
+import com.hsb.entity.People;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serializer;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.hsb.springboot;
 
-import com.hsb.springboot.entity.People;
+import com.hsb.entity.People;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

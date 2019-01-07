@@ -1,4 +1,4 @@
-package com.hsb.springboot.entity;
+package com.hsb.entity;
 
 import lombok.Data;
 

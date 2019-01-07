@@ -3,7 +3,7 @@ package com.hsb.springboot.config.deserializer;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.serializers.BeanSerializer;
-import com.hsb.springboot.entity.People;
+import com.hsb.entity.People;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.springframework.stereotype.Component;

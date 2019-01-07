@@ -3,7 +3,7 @@ package com.hsb.springboot.config;
 import com.hsb.springboot.config.deserializer.KryoPeopleDeserializer;
 import com.hsb.springboot.config.deserializer.KryoStringDeserializer;
 import com.hsb.springboot.config.deserializer.PeopleDeserializer;
-import com.hsb.springboot.entity.People;
+import com.hsb.entity.People;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
